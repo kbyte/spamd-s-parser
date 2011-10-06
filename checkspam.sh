@@ -1,7 +1,6 @@
 #!/bin/bash
 #checkspam.sh parse the spamd.log to print a report whit spamers domain and IP Address
 
-cd /home/psanchez/bin/
 clear
 
 to_file=$1
@@ -37,8 +36,9 @@ if grep -v -e "unknown" idspam.txt > toparse.txt
   i=1
   while read line 
   do
-   to_date=$(head -$i /home/psanchez/bin/toparse.txt | cut -d "[" -f 1 | tail -1) 
-   to_extract=$(head -$i /home/psanchez/bin/toparse.txt | cut -d "<" -f 2 | cut -d "@" -f 2 | cut -d ">" -f 1 | tail -1)
+   ### change /home/user/path/ to your prefered path ###
+   to_date=$(head -$i /home/user/path/toparse.txt | cut -d "[" -f 1 | tail -1) 
+   to_extract=$(head -$i /home/user/path/toparse.txt | cut -d "<" -f 2 | cut -d "@" -f 2 | cut -d ">" -f 1 | tail -1)
    to_address=$(nslookup $to_extract | grep "Address: " | cut -d ":" -f 2 | tail -1)
    
    if test -z $to_address ; then to_address=" unknown ip" ; fi
